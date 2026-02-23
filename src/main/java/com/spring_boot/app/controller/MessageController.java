@@ -2,6 +2,7 @@ package com.spring_boot.app.controller;
 
 
 import com.spring_boot.app.publisher.RabbitMQProducer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,7 @@ public class MessageController {
     private RabbitMQProducer rabbitMQProducer;
 
     // Accept null when RabbitMQProducer bean is not created (rabbitmq.enabled=false)
-    public MessageController(RabbitMQProducer rabbitMQProducer) {
+    public MessageController(@Autowired(required = false) RabbitMQProducer rabbitMQProducer) {
         this.rabbitMQProducer = rabbitMQProducer;
     }
 
