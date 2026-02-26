@@ -16,18 +16,16 @@ public class MessageController {
     private RabbitMQProducer rabbitMQProducer;
 
     // Accept null when RabbitMQProducer bean is not created (rabbitmq.enabled=false)
-    public MessageController(@Autowired(required = false) RabbitMQProducer rabbitMQProducer) {
+    public MessageController(@Autowired(required = false)
+                             RabbitMQProducer rabbitMQProducer) {
         this.rabbitMQProducer = rabbitMQProducer;
     }
 
-    //http://localhost:8080/api/v1/messages/publish?message=HelloWorld
+    //http://localhost:8082/api/v1/messages/publish?message=HelloWorld
     @GetMapping("/publish")
-    public ResponseEntity<String> sendMessage(@RequestParam String message) {
-        if (rabbitMQProducer == null) {
-            return ResponseEntity.ok("RabbitMQ disabled - message not sent: " + message);
-        }
+    public ResponseEntity<String> sendMessage(@RequestParam("message") String message) {
         rabbitMQProducer.sendMessage(message);
-        return ResponseEntity.ok("Message sent to RabbitMQ: " + message);
+        return ResponseEntity.ok("Message sent to RabbitMQ....! ");
 
     }
 }
